@@ -12,7 +12,10 @@ def getNeName(str):
     return str.split(':')[1].strip()
 
 def main():
+
+    # Open RAW MML result and convert to json dict
     logging.debug(f"Started")
+    print(f"Started")
     with open(mmlResult, 'r') as raw_mml:
         json_dict = {}
         neName = ''
@@ -41,6 +44,7 @@ def main():
             neName = ''
             resrec = []
 
+    # Dump data to json file for some check
     #with open('dnsTac.json', 'w') as fp:
     #    json.dump(json_dict, fp)
 
@@ -51,17 +55,24 @@ def main():
     js0 = json_dict[keys[0]]
     js1 = json_dict[keys[1]]
 
+    # Compare NE0 on NE1
     logging.debug(f"Comparing {keys[0]} on {keys[1]}")
+    print(f"Comparing {keys[0]} on {keys[1]}")
     for item in js0:
         if item not in js1:
             logging.info(f"Info: {keys[1]} missing {item}")
 
+    # Compare NE1 on NE0
     logging.debug(f"Comparing {keys[1]} on {keys[0]}")
+    print(f"Comparing {keys[1]} on {keys[0]}")
     for item in js1:
         if item not in js0:
             logging.info(f"Info: {keys[0]} missing {item}")
-
+    
+    # Finished
+    logging.debug(f"Finished")
+    print(f"Finished")
 
 if __name__ == "__main__":
     main()
-    logging.debug(f"Finished")
+    
